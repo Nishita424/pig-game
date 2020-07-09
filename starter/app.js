@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var roundScore, dice, currentPlayer, activePlayer, scores, gamePlaying, previousDice, previousDicePlayer, dicePlayer;
+var roundScore, dice, activePlayer, scores, gamePlaying, previousDice;
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
@@ -34,7 +34,6 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
            nextPlayer();
         }
         previousDice = dice;
-        previousDicePlayer = activePlayer;
     }
 });
 
