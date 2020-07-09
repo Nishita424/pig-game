@@ -18,11 +18,12 @@ Change the game to follow these rules:
 3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: you will need CSS to position the second dice, so take a look at the CSS code for the first one.)
 */
 
-var roundScore, dice, activePlayer, scores, gamePlaying, previousDice;
+var roundScore, activePlayer, scores, gamePlaying, previousDice;
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if (gamePlaying){
+        var dice;
         dice = Math.floor(Math.random()*6) + 1;
         // dice = 6;
         
@@ -48,16 +49,17 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
 function nextPlayer(){
     document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
     
     if (scores[activePlayer] > 20){
         document.querySelector('#name-'+activePlayer).textContent = "Winner!";
+        document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
         gamePlaying = false;
     }
     else{            
         document.querySelector('#score-'+activePlayer).textContent = scores[activePlayer];
         roundScore = 0;
         document.querySelector('#current-'+activePlayer).textContent = roundScore;
-        document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
         activePlayer === 0 ? activePlayer=1 : activePlayer=0;
         document.querySelector('.player-'+activePlayer+'-panel').classList.add('active');
     }
@@ -89,6 +91,7 @@ function init(){
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.remove('winner');
     document.querySelector('.player-1-panel').classList.remove('winner');
-    document.querySelector('#name-'+activePlayer).textContent = "Player "+ activePlayer + 1;
     document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('#name-0').textContent = "Player 1";
+    document.querySelector('#name-1').textContent = "Player 2";
 }
