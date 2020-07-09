@@ -51,7 +51,17 @@ function nextPlayer(){
     document.querySelector('.dice').style.display = 'none';
     document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
     
-    if (scores[activePlayer] > 20){
+    var targetScore = document.getElementById('target').value;
+    var winningScore;
+    // undefined, null, "", 0 are coerced to false
+    // Anything else is coerced to true
+    if(targetScore){
+        winningScore = targetScore;
+    } else {
+        winningScore = 100; // default
+    }
+    
+    if (scores[activePlayer] >= winningScore){
         document.querySelector('#name-'+activePlayer).textContent = "Winner!";
         document.querySelector('.player-'+activePlayer+'-panel').classList.add('winner');
         gamePlaying = false;
@@ -94,4 +104,5 @@ function init(){
     document.querySelector('.player-0-panel').classList.add('active');
     document.querySelector('#name-0').textContent = "Player 1";
     document.querySelector('#name-1').textContent = "Player 2";
+    document.getElementById('target').textContent = "null";
 }
