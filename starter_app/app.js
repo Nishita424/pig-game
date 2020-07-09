@@ -18,37 +18,49 @@ Change the game to follow these rules:
 3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: you will need CSS to position the second dice, so take a look at the CSS code for the first one.)
 */
 
-var roundScore, activePlayer, scores, gamePlaying, previousDice;
+var roundScore, activePlayer, scores, gamePlaying;
 init();
+var previousDiceOne, previousDiceTwo, diceOne, diceTwo;
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if (gamePlaying){
-        var dice;
-        dice = Math.floor(Math.random()*6) + 1;
+        diceOne = Math.floor(Math.random()*6) + 1;
+        diceTwo = Math.floor(Math.random()*6) + 1;
         // dice = 6;
         
-        var diceDOM = document.querySelector('.dice');
-        diceDOM.style.display = 'block';
-        diceDOM.src="dice-"+dice+".png";
+        var diceOneDOM = document.querySelector('#dice-1');
+        diceOneDOM.style.display = 'block';
+        diceOneDOM.src="dice-"+diceOne+".png";
+        var diceTwoDOM = document.querySelector('#dice-2');
+        diceTwoDOM.style.display = 'block';
+        diceTwoDOM.src="dice-"+diceTwo+".png";
         
-        if(previousDice === 6 && dice === 6){
+        if((previousDiceOne === 6 || previousDiceTwo === 6) && (diceOne === 6 || diceTwo === 6)){
             scores[activePlayer] = 0;
             document.querySelector('#score-'+activePlayer).textContent = '0';
             nextPlayer();
         }
-        else if (dice!==1){
-            roundScore += dice;
+        else if (diceOne === 6 && diceTwo === 6){
+            scores[activePlayer] = 0;
+            document.querySelector('#score-'+activePlayer).textContent = '0';
+            nextPlayer();
+        }
+        else if (diceOne !== 1 && diceTwo !== 1){
+            roundScore += diceOne + diceTwo;
             document.querySelector('#current-'+activePlayer).textContent = roundScore;
         }
         else{
            nextPlayer();
         }
-        previousDice = dice;
+        previousDiceOne = diceOne;
+        previousDiceTwo = diceTwo;
+        console.log(previousDiceOne, previousDiceTwo);
     }
 });
 
 function nextPlayer(){
-    document.querySelector('.dice').style.display = 'none';
+    // document.querySelector('#dice-1').style.display = 'none';
+    // document.querySelector('#dice-2').style.display = 'none';
     document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
     
     var targetScore = document.getElementById('target').value;
@@ -80,7 +92,8 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     document.querySelector('#score-'+activePlayer).textContent = scores[activePlayer];
     document.querySelector('#current-'+activePlayer).textContent = 0;
     roundScore = 0;
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('#dice-1').style.display = 'none';
+    document.querySelector('#dice-2').style.display = 'none';
     nextPlayer();
 });
 
@@ -91,7 +104,8 @@ function init(){
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('#dice-1').style.display = 'none';
+    document.querySelector('#dice-2').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
