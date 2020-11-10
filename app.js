@@ -59,8 +59,8 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 });
 
 function nextPlayer(){
-    // document.querySelector('#dice-1').style.display = 'none';
-    // document.querySelector('#dice-2').style.display = 'none';
+    document.querySelector('#dice-1').style.display = 'none';
+    document.querySelector('#dice-2').style.display = 'none';
     document.querySelector('.player-'+activePlayer+'-panel').classList.remove('active');
     
     var targetScore = document.getElementById('target').value;
